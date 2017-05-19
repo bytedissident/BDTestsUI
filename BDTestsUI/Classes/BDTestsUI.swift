@@ -7,20 +7,30 @@
 //
 
 import XCTest
-import BDTests
 
-public class BDTestsUI {
+
+open class BDTestsUI:XCTestCase {
     
     
-    public func seedTest(spec:String){
+    
+    override open func setUp() {
+        super.setUp()
         
-        let test = BDTests(enviornmentName: nil)
-        let model = test.seedDatabase(json: "{\"\(spec)\":true}")
-        XCTAssert(model)
-        //XCUIApplication().launch()
-        let app = XCUIApplication()
-        app.launch()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        // In UI tests it is usually best to stop immediately when a failure occurs.
+        continueAfterFailure = false
+        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
+        XCUIApplication().launch()
+        
+        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
+    
+    override open func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+    
     
     public func textfield(identifier:String,text:String){
         
@@ -141,7 +151,7 @@ public class BDTestsUI {
         }
     }
     
-   public  func buttonLabel(identifier:String,text:String){
+    public  func buttonLabel(identifier:String,text:String){
         let app = XCUIApplication()
         
         let btn = app.buttons[identifier]
@@ -221,7 +231,7 @@ public class BDTestsUI {
         }
     }
     
-   public  func collectionCellLabelExists(cellLabel:String,exists:String){
+    public  func collectionCellLabelExists(cellLabel:String,exists:String){
         
         let app = XCUIApplication()
         let firstChild = app.collectionViews.children(matching:.any).element(boundBy: 0)
@@ -236,7 +246,7 @@ public class BDTestsUI {
         }
     }
     
-   public  func collectionButton(buttonLabel:String,tap:Bool?){
+    public  func collectionButton(buttonLabel:String,tap:Bool?){
         
         let app = XCUIApplication()
         let firstChild = app.collectionViews.children(matching:.any).element(boundBy: 0)
@@ -282,7 +292,7 @@ public class BDTestsUI {
         }
     }
     
-   public  func tableCellByIdentifierDoesNotExist(text:String){
+    public  func tableCellByIdentifierDoesNotExist(text:String){
         
         let app = XCUIApplication()
         let label =  app.tables.staticTexts[text]
