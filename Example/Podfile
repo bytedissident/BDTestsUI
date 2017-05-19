@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'BDTestsUI_Example' do
+  pod 'BDTestsUI', :path => '/Users/derekbronston/Documents/BDTests/BDTestsUI'
+
+  target 'BDTestsUI_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
