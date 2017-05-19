@@ -9,21 +9,7 @@
 import XCTest
 import BDTests
 
-public class BDTestsUI:XCTestCase {
-    
-    override public func setUp() {
-        super.setUp()
-        
-        continueAfterFailure = true
-    }
-    
-    override public func tearDown() {
-        
-        let test = BDTests(enviornmentName: nil)
-        test.removeTest()
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
+public class BDTestsUI {
     
     
     public func seedTest(spec:String){
