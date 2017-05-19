@@ -29,7 +29,7 @@
 
 /* Begin PBXFileReference section */
 		152A69BA00CCEE8484E1A07A /* Pods_BDTestsUI_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BDTestsUI_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		176643D0D2B750FFC885BE84 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		176643D0D2B750FFC885BE84 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		3419AC0A8CA9C953D00C79BA /* Pods-BDTestsUI_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BDTestsUI_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BDTestsUI_Tests/Pods-BDTestsUI_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5FE5F66CD8BAF2029437ED98 /* Pods_BDTestsUI_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BDTestsUI_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* BDTestsUI_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BDTestsUI_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,8 +45,8 @@
 		7997A1B1B14BA181A37E36B5 /* Pods-BDTestsUI_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BDTestsUI_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-BDTestsUI_Example/Pods-BDTestsUI_Example.release.xcconfig"; sourceTree = "<group>"; };
 		A78ABE770C84891A10A26B2A /* Pods-BDTestsUI_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BDTestsUI_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BDTestsUI_Example/Pods-BDTestsUI_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		BE6C09BFFD51DEE9FFDF0B09 /* Pods-BDTestsUI_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BDTestsUI_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BDTestsUI_Tests/Pods-BDTestsUI_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		CB039D54DA7D22022259011E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		FAE727493AD1F57C56E2D65E /* BDTestsUI.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = BDTestsUI.podspec; path = ../BDTestsUI.podspec; sourceTree = "<group>"; };
+		CB039D54DA7D22022259011E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		FAE727493AD1F57C56E2D65E /* BDTestsUI.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BDTestsUI.podspec; path = ../BDTestsUI.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -443,7 +443,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -483,7 +483,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
