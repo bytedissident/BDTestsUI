@@ -5,25 +5,16 @@
 //  Created by Derek Bronston on 2/16/17.
 //  Copyright © 2017 Derek Bronston. All rights reserved.
 //
-
 import XCTest
 
-
 open class BDTestsUI:XCTestCase {
-    
-    
     
     override open func setUp() {
         super.setUp()
         
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
         // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
         XCUIApplication().launch()
-        
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
     
     override open func tearDown() {
@@ -31,76 +22,145 @@ open class BDTestsUI:XCTestCase {
         super.tearDown()
     }
     
-    
-    public func textfield(identifier:String,text:String){
+    /**
+     If existence of the textfield == true.
+     tap and type text. If does not exist only test for that state
+     
+     @param identifier:String
+     @param text:String?
+     @prams exists:Bool
+     
+     @return none
+    */
+    public func textfield(identifier:String,text:String?,exists:Bool){
         
         let app = XCUIApplication()
+        
+        let doesExist = exists ? "true" : "false"
         
         let field = app.textFields[identifier]
-        let exists_field = NSPredicate(format: "exists == true")
+        let exists_field = NSPredicate(format: "exists == \(doesExist)")
         expectation(for: exists_field, evaluatedWith:field, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         
-        field.tap()
-        field.typeText(text)
-        
+        if exists{
+            field.tap()
+            
+            guard let textToEnter = text else { return }
+            field.typeText(textToEnter)
+        }
     }
     
-    public func secureTextfield(identifier:String,text:String){
+    /**
+     If existence of the secure textfield == true.
+     tap and type text. If does not exist only test for that state
+     
+     @param identifier:String
+     @param text:String?
+     @prams exists:Bool
+     
+     @return none
+     */
+    public func secureTextfield(identifier:String,text:String?,exists:Bool){
         
         let app = XCUIApplication()
+        
+        let doesExist = exists ? "true" : "false"
         
         let field = app.secureTextFields[identifier]
-        let exists_field = NSPredicate(format: "exists == true")
+        let exists_field = NSPredicate(format: "exists == \(doesExist)")
         expectation(for: exists_field, evaluatedWith:field, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         
-        field.tap()
-        field.typeText(text)
-        
+        if exists{
+            field.tap()
+            
+            guard let textToEnter = text else { return }
+            field.typeText(textToEnter)
+        }
     }
     
-    //TEST LABEL
-    public func label(text:String,identifier:String){
+    /**
+     If existence of the label == true.
+     Check label.text value. If does not exist only test for that state
+     
+     @param identifier:String
+     @param text:String?
+     @prams exists:Bool
+     
+     @return none
+     */
+    public func label(text:String?,identifier:String,exists:Bool){
         
         let app = XCUIApplication()
-        
+        let doesExist = exists ? "true" : "false"
         let label = app.staticTexts[identifier]
-        let exists_label = NSPredicate(format: "exists == true")
+        let exists_label = NSPredicate(format: "exists == \(doesExist)")
         expectation(for: exists_label, evaluatedWith:label, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         
+        if !exists { return }
         //IS STATUS CORRECTLY DISPLAYED
         XCTAssertNotNil(label)
-        XCTAssertEqual(label.label, text)
+        
+        guard let textInLabel = text else { return }
+        XCTAssertEqual(label.label, textInLabel)
     }
     
+    /**
+     If existence of the label == true.
+     Check label.text contains string.
+     
+     @param identifier:String
+     @param text:String
+     
+     @return none
+     */
     public func labelContains(text:String,identifier:String){
         
         let app = XCUIApplication()
-        
         let label = app.staticTexts[identifier]
         let exists_label = NSPredicate(format: "exists == true")
         expectation(for: exists_label, evaluatedWith:label, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
+        
         
         //IS STATUS CORRECTLY DISPLAYED
         XCTAssertNotNil(label)
         XCTAssert(label.label.contains(text))
     }
     
-    
-    public func view(exists:String,identifier:String){
+    /**
+     Check existence of view
+     
+     @param identifier:String
+     @param exists:Bool
+     
+     @return none
+     */
+    public func view(identifier:String,exists:Bool){
         
         let app = XCUIApplication()
+        let doesExist = exists ? "true" : "false"
         let label = app.otherElements[identifier]
-        let exists_view = NSPredicate(format: "exists == \(exists)")
+        let exists_view = NSPredicate(format: "exists == \(doesExist)")
         expectation(for: exists_view, evaluatedWith:label, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
     }
     
-    //TEST ALERT
-    public func alert(title:String,message:String?,button:String?,tap:Bool?){
+    /**
+     Check existence of UIAlertView. 
+     Check message text, check title text, check button text, tap button
+     
+     @param title:String
+     @param message:String?
+     @param button:String?
+     @param tap:Bool
+     @param exists:Bool
+     
+     @return none
+     */
+    public func alert(title:String,message:String?,button:String?,tap:Bool,exists:Bool){
         
         let app = XCUIApplication()
         
@@ -117,7 +177,7 @@ open class BDTestsUI:XCTestCase {
             XCTAssert(app.alerts[title].buttons[btn].exists)
         }
         
-        if tap != nil {
+        if tap {
             if let btn = button {
                 app.alerts[title].buttons[btn].tap()
             }else {
@@ -126,6 +186,7 @@ open class BDTestsUI:XCTestCase {
         }
     }
     
+    @available(*, deprecated, message: "Use  alert(title:String,message:String?,button:String?,tap:Bool,exists:Bool) instead")
     public func alertFalse(title:String){
         let app = XCUIApplication()
         
@@ -136,34 +197,58 @@ open class BDTestsUI:XCTestCase {
         
     }
     
-    //TEST BUTTON
-    public func button(identifier:String,tap:Bool?,exists:String){
+    /**
+     Check existence of UIButton.
+     Tap button if indicated
+     
+     @param identifier:String
+     @param tap:Bool
+     @param exists:Bool
+     
+     @return none
+     */
+    public func button(identifier:String,tap:Bool,exists:Bool){
         
         let app = XCUIApplication()
-        
+        let doesExist = exists ? "true" : "false"
         let btn = app.buttons[identifier]
-        let exists_btn = NSPredicate(format: "exists == \(exists)")
+        let exists_btn = NSPredicate(format: "exists == \(doesExist)")
         expectation(for: exists_btn , evaluatedWith:btn , handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         
-        if tap != nil {
+        if tap {
             btn.tap()
         }
     }
     
+    /**
+     Check existence of UIButton and whether button's label == text
+     
+     @param identifier:String
+     @param text:String
+     
+     @return none
+     */
     public  func buttonLabel(identifier:String,text:String){
-        let app = XCUIApplication()
         
+        let app = XCUIApplication()
         let btn = app.buttons[identifier]
         let exists_btn = NSPredicate(format: "exists == true")
         expectation(for: exists_btn , evaluatedWith:btn , handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         
-        
         XCTAssertEqual(app.label, text)
     }
     
-    public func statusBar(identifier:String,tap:Bool?){
+    /**
+     Check existence of UIStatus
+     
+     @param identifier:String
+     @param text:String
+     
+     @return none
+     */
+    public func statusBar(identifier:String,tap:Bool){
         
         let app = XCUIApplication()
         
@@ -172,13 +257,21 @@ open class BDTestsUI:XCTestCase {
         expectation(for: exists_btn , evaluatedWith:btn , handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         
-        if tap != nil {
+        if tap  {
             btn.tap()
         }
     }
     
-    //ACTION SHEET
-    public func sheet(title:String,tap:Bool?,numberOfItems:UInt?){
+    /**
+     Check existence of UIActionSheet, check number of items in sheet if not nil, 
+     tap button of passed button title
+     
+     @param identifier:String
+     @param text:String
+     
+     @return none
+     */
+    public func sheet(title:String,tap:Bool,numberOfItems:UInt?){
         
         let app = XCUIApplication()
         
@@ -193,30 +286,38 @@ open class BDTestsUI:XCTestCase {
             XCTAssertEqual(sht.buttons.count, num)
         }
         
-        if tap != nil {
+        if tap {
             weeklyOrderChoice1.tap()
         }
     }
     
-    public func collectionWithLabel(cellLabel:String,tap:Bool?){
+    /**
+     Look for cell in collection view based on label, tap cell
+     
+     @param cellLabel:String
+     @param tap:Bool
+     
+     @return none
+     */
+    public func collectionWithLabel(cellLabel:String,tap:Bool){
         
         let app = XCUIApplication()
         let firstChild = app.collectionViews[cellLabel].children(matching:.any).element(boundBy: 0)
         if firstChild.exists {
             
-            if tap != nil {
+            if tap {
                 firstChild.tap()
             }
         }
     }
     
-    public func collectionCell(cellLabel:String,labelString:String?,tap:Bool?){
+    public func collectionCell(cellLabel:String,labelString:String?,tap:Bool){
         
         let app = XCUIApplication()
         let firstChild = app.collectionViews.children(matching:.any).element(boundBy: 0)
         if firstChild.exists {
             
-            if tap != nil {
+            if tap {
                 firstChild.tap()
             }
             if labelString ==  nil { return }
@@ -246,7 +347,7 @@ open class BDTestsUI:XCTestCase {
         }
     }
     
-    public  func collectionButton(buttonLabel:String,tap:Bool?){
+    public  func collectionButton(buttonLabel:String,tap:Bool){
         
         let app = XCUIApplication()
         let firstChild = app.collectionViews.children(matching:.any).element(boundBy: 0)
@@ -258,11 +359,12 @@ open class BDTestsUI:XCTestCase {
             expectation(for: exists_cellLbl  , evaluatedWith:cellLbl  , handler: nil)
             waitForExpectations(timeout: 5, handler: nil)
             
-            if tap != nil {
+            if tap {
                 cellLbl.tap()
             }
         }
     }
+    
     
     public func tabBar(tabIndex:UInt){
         
@@ -301,6 +403,14 @@ open class BDTestsUI:XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
+    /**
+     Look for nav bar with button, tap nav button
+     
+     @param indentifier:String
+     @param tap:Bool
+     
+     @return none
+     */
     public func navBar(navIdentifier:String){
         let app = XCUIApplication()
         let bar = app.navigationBars[navIdentifier]
@@ -309,5 +419,196 @@ open class BDTestsUI:XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         
         bar.otherElements.children(matching: .button).element.tap()
+    }
+    
+    //MARK: Deprecated Methods
+    
+    @available(*, deprecated, message: "Use textfield(identifier:String,text:String?,exists:Bool) instead")
+    public func textfield(identifier:String,text:String){
+        
+        let app = XCUIApplication()
+        
+        let field = app.textFields[identifier]
+        let exists_field = NSPredicate(format: "exists == true")
+        expectation(for: exists_field, evaluatedWith:field, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        
+        field.tap()
+        field.typeText(text)
+        
+    }
+    
+    @available(*, deprecated, message: "Use secureTextfield(identifier:String,text:String?,exists:Bool) instead")
+    public func secureTextfield(identifier:String,text:String){
+        
+        let app = XCUIApplication()
+        
+        let field = app.secureTextFields[identifier]
+        let exists_field = NSPredicate(format: "exists == true")
+        expectation(for: exists_field, evaluatedWith:field, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        
+        field.tap()
+        field.typeText(text)
+        
+    }
+    
+    //TEST LABEL
+    @available(*, deprecated, message: "Use label(text:String?,identifier:String,exists:Bool) instead")
+    public func label(text:String,identifier:String){
+        
+        let app = XCUIApplication()
+        
+        let label = app.staticTexts[identifier]
+        let exists_label = NSPredicate(format: "exists == true")
+        expectation(for: exists_label, evaluatedWith:label, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        
+        //IS STATUS CORRECTLY DISPLAYED
+        XCTAssertNotNil(label)
+        XCTAssertEqual(label.label, text)
+    }
+    
+    @available(*, deprecated, message: "Use view(identifier:String,exists:Bool) instead")
+    public func view(exists:String,identifier:String){
+        
+        let app = XCUIApplication()
+        let label = app.otherElements[identifier]
+        let exists_view = NSPredicate(format: "exists == \(exists)")
+        expectation(for: exists_view, evaluatedWith:label, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    @available(*, deprecated, message: "Use alert(title:String,message:String?,button:String?,tap:Bool,exists:Bool) instead")
+    public func alert(title:String,message:String?,button:String?,tap:Bool?){
+        
+        let app = XCUIApplication()
+        
+        let alert = app.alerts[title]
+        let exists_alert = NSPredicate(format: "exists == true")
+        expectation(for: exists_alert , evaluatedWith:alert , handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
+        
+        if let msg = message {
+            XCTAssert(app.alerts[title].staticTexts[msg].exists)
+        }
+        
+        if let btn = button {
+            XCTAssert(app.alerts[title].buttons[btn].exists)
+        }
+        
+        if tap != nil {
+            if let btn = button {
+                app.alerts[title].buttons[btn].tap()
+            }else {
+                XCTFail()
+            }
+        }
+    }
+    
+    @available(*, deprecated, message: "Use button(identifier:String,tap:Bool,exists:Bool) instead")
+    public func button(identifier:String,tap:Bool?,exists:String){
+        
+        let app = XCUIApplication()
+        
+        let btn = app.buttons[identifier]
+        let exists_btn = NSPredicate(format: "exists == \(exists)")
+        expectation(for: exists_btn , evaluatedWith:btn , handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        
+        if tap != nil {
+            btn.tap()
+        }
+    }
+    
+    @available(*, deprecated, message: "Use label(text:String?,identifier:String,exists:Bool) instead")
+    public func statusBar(identifier:String,tap:Bool?){
+        
+        let app = XCUIApplication()
+        
+        let btn = app.statusBars.buttons[identifier]
+        let exists_btn = NSPredicate(format: "exists == true")
+        expectation(for: exists_btn , evaluatedWith:btn , handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        
+        if tap != nil {
+            btn.tap()
+        }
+    }
+    
+    @available(*, deprecated, message: "Use statusBar(identifier:String,tap:Bool) instead")
+    public func sheet(title:String,tap:Bool?,numberOfItems:UInt?){
+        
+        let app = XCUIApplication()
+        
+        //ARE THERE CHOICES AVAIL
+        let weeklyOrderChoice1 = app.sheets.buttons[title]
+        let exists_weeklyOrderChoice1 = NSPredicate(format: "exists == true")
+        expectation(for: exists_weeklyOrderChoice1 , evaluatedWith:weeklyOrderChoice1 , handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        
+        if let num = numberOfItems {
+            let sht = app.sheets
+            XCTAssertEqual(sht.buttons.count, num)
+        }
+        
+        if tap != nil {
+            weeklyOrderChoice1.tap()
+        }
+    }
+    
+    @available(*, deprecated, message: "Use collectionWithLabel(cellLabel:String,tap:Bool) instead")
+    public func collectionWithLabel(cellLabel:String,tap:Bool?){
+        
+        let app = XCUIApplication()
+        let firstChild = app.collectionViews[cellLabel].children(matching:.any).element(boundBy: 0)
+        if firstChild.exists {
+            
+            if tap != nil {
+                firstChild.tap()
+            }
+        }
+    }
+    
+    @available(*, deprecated, message: "Use collectionCell(cellLabel:String,labelString:String?,tap:Bool) instead")
+    public func collectionCell(cellLabel:String,labelString:String?,tap:Bool?){
+        
+        let app = XCUIApplication()
+        let firstChild = app.collectionViews.children(matching:.any).element(boundBy: 0)
+        if firstChild.exists {
+            
+            if tap != nil {
+                firstChild.tap()
+            }
+            if labelString ==  nil { return }
+            let cellLbl = app.collectionViews.children(matching:.any).staticTexts[cellLabel]
+            let exists_cellLbl  = NSPredicate(format: "exists == true")
+            expectation(for: exists_cellLbl  , evaluatedWith:cellLbl  , handler: nil)
+            waitForExpectations(timeout: 5, handler: nil)
+            
+            if let lblString = labelString {
+                XCTAssertEqual(cellLbl.label, lblString)
+            }
+        }
+    }
+    
+    
+    @available(*, deprecated, message: "Use collectionButton(buttonLabel:String,tap:Bool) instead")
+    public  func collectionButton(buttonLabel:String,tap:Bool?){
+        
+        let app = XCUIApplication()
+        let firstChild = app.collectionViews.children(matching:.any).element(boundBy: 0)
+        if firstChild.exists {
+            
+            
+            let cellLbl = firstChild.children(matching:.any).buttons[buttonLabel]
+            let exists_cellLbl  = NSPredicate(format: "exists == true")
+            expectation(for: exists_cellLbl  , evaluatedWith:cellLbl  , handler: nil)
+            waitForExpectations(timeout: 5, handler: nil)
+            
+            if tap != nil {
+                cellLbl.tap()
+            }
+        }
     }
 }
