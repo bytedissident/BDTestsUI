@@ -1,0 +1,42 @@
+PODS:
+  - Alamofire (4.3.0)
+  - BDTests (0.0.1):
+    - OHHTTPStubs
+    - OHHTTPStubs/Swift
+  - OHHTTPStubs (5.2.3):
+    - OHHTTPStubs/Default (= 5.2.3)
+  - OHHTTPStubs/Core (5.2.3)
+  - OHHTTPStubs/Default (5.2.3):
+    - OHHTTPStubs/Core
+    - OHHTTPStubs/JSON
+    - OHHTTPStubs/NSURLSession
+    - OHHTTPStubs/OHPathHelpers
+  - OHHTTPStubs/JSON (5.2.3):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/NSURLSession (5.2.3):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/OHPathHelpers (5.2.3)
+  - OHHTTPStubs/Swift (5.2.3):
+    - OHHTTPStubs/Core
+
+DEPENDENCIES:
+  - Alamofire
+  - BDTests (from `https://github.com/bytedissident/BDTests`)
+
+EXTERNAL SOURCES:
+  BDTests:
+    :git: https://github.com/bytedissident/BDTests
+
+CHECKOUT OPTIONS:
+  BDTests:
+    :commit: c54f1b6f196ffb00fae3918391034f6339b03fb0
+    :git: https://github.com/bytedissident/BDTests
+
+SPEC CHECKSUMS:
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  BDTests: b9710fea9cfcb28867b65f88a7228dc94dcc8697
+  OHHTTPStubs: e238cd5b66d8efa51c861db45895de8fe079f4a7
+
+PODFILE CHECKSUM: 199c0e4a91993423b1ff084e90de98cf9d5c51d3
+
+COCOAPODS: 1.2.1
