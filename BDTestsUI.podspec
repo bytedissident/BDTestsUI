@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BDTestsUI'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of BDTestsUI.'
+  s.version          = '0.0.1'
+  s.summary          = 'BDTestsUI is a companion framework to BDTests. Its objective is to simplify and help clarify UI testing in Swift.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -17,9 +17,7 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
+  s.description      = 'BDTestsUI is a companion framework to BDTests. Its objective is to simplify and help clarify UI testing in Swift.'
 
   s.homepage         = 'https://github.com/bytedissident/BDTestsUI'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
