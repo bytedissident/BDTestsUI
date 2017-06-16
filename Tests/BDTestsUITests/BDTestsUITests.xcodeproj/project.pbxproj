@@ -17,6 +17,8 @@
 		875053371ED36D1E00A04704 /* BDTestsUITestsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875053361ED36D1E00A04704 /* BDTestsUITestsUITests.swift */; };
 		875053441ED36DD800A04704 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 875053421ED36DD800A04704 /* .gitkeep */; };
 		875053461ED36DDD00A04704 /* BDTestsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875053431ED36DD800A04704 /* BDTestsUI.swift */; };
+		8759498C1EF49307008E156E /* TableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8759498B1EF49307008E156E /* TableTableViewController.swift */; };
+		8759498E1EF49318008E156E /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8759498D1EF49318008E156E /* CollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		875053381ED36D1E00A04704 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		875053421ED36DD800A04704 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		875053431ED36DD800A04704 /* BDTestsUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BDTestsUI.swift; sourceTree = "<group>"; };
+		8759498B1EF49307008E156E /* TableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableTableViewController.swift; sourceTree = "<group>"; };
+		8759498D1EF49318008E156E /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		C11F3022FA0741CA90270D5A /* Pods-BDTestsUITestsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BDTestsUITestsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BDTestsUITestsUITests/Pods-BDTestsUITestsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C9A390235FACD0305D199667 /* Pods-BDTestsUITestsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BDTestsUITestsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BDTestsUITestsUITests/Pods-BDTestsUITestsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CC21A0D2B800E211FB7E8EA9 /* Pods-BDTestsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BDTestsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BDTestsUITests/Pods-BDTestsUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -111,6 +115,8 @@
 				875053281ED36D1E00A04704 /* Assets.xcassets */,
 				8750532A1ED36D1E00A04704 /* LaunchScreen.storyboard */,
 				8750532D1ED36D1E00A04704 /* Info.plist */,
+				8759498B1EF49307008E156E /* TableTableViewController.swift */,
+				8759498D1EF49318008E156E /* CollectionViewController.swift */,
 			);
 			path = BDTestsUITests;
 			sourceTree = "<group>";
@@ -348,7 +354,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8759498E1EF49318008E156E /* CollectionViewController.swift in Sources */,
 				875053241ED36D1E00A04704 /* ViewController.swift in Sources */,
+				8759498C1EF49307008E156E /* TableTableViewController.swift in Sources */,
 				875053221ED36D1E00A04704 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
