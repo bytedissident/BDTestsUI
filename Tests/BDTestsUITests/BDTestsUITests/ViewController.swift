@@ -29,5 +29,45 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func testButtonAction(_ sender: Any) {
+        
+        self.testLabel.accessibilityLabel = "Test Label Pressed"
+        self.testLabel.text = "Test Label Pressed"
+    }
+    
+    @IBAction func triggerSheet(_ sender: Any) {
+        
+        let alert = UIAlertController(title: "Sheet Title", message: "Sheet message.", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "one", style: .default) { action in
+            // perhaps use action.title here
+            self.testLabel.accessibilityLabel = "One Pressed"
+            self.testLabel.text = "One Pressed"
+        })
+        
+        alert.addAction(UIAlertAction(title: "two", style: .default) { action in
+            // perhaps use action.title here
+        })
+        
+        self.present(alert, animated: true, completion: nil)
+
+    }
+    
+    @IBAction func triggerAlert(_ sender: Any) {
+        
+        let alert = UIAlertController(title: "Alert Title", message: "Alert message.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "one", style: .default) { action in
+            // perhaps use action.title here
+            self.testLabel.accessibilityLabel = "One Pressed"
+            self.testLabel.text = "One Pressed"
+        })
+        
+        alert.addAction(UIAlertAction(title: "two", style: .default) { action in
+            // perhaps use action.title here
+        })
+        
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 

@@ -1,6 +1,5 @@
 //
-//  BDTestsRealm.swift
-//  BDTest
+//  BDTestsUI
 //
 //  Created by Derek Bronston on 2/16/17.
 //  Copyright © 2017 Derek Bronston. All rights reserved.
@@ -160,7 +159,7 @@ open class BDTestsUI:XCTestCase {
      
      @return none
      */
-    public func alert(title:String,message:String?,button:String?,tap:Bool,exists:Bool){
+    public func alert(title:String,message:String?,button:String?,tap:Bool){
         
         let app = XCUIApplication()
         
@@ -237,7 +236,7 @@ open class BDTestsUI:XCTestCase {
         expectation(for: exists_btn , evaluatedWith:btn , handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         
-        XCTAssertEqual(app.label, text)
+        XCTAssertEqual(btn.label, text)
     }
     
     /**
@@ -271,23 +270,27 @@ open class BDTestsUI:XCTestCase {
      
      @return none
      */
-    public func sheet(title:String,tap:Bool,numberOfItems:UInt?){
+    public func sheet(title:String,message:String?,button:String?,tap:Bool,numberOfItems:UInt?){
         
         let app = XCUIApplication()
         
         //ARE THERE CHOICES AVAIL
-        let weeklyOrderChoice1 = app.sheets.buttons[title]
-        let exists_weeklyOrderChoice1 = NSPredicate(format: "exists == true")
-        expectation(for: exists_weeklyOrderChoice1 , evaluatedWith:weeklyOrderChoice1 , handler: nil)
+        let sheet = app.sheets[title]
+        let exists_sheet = NSPredicate(format: "exists == true")
+        expectation(for: exists_sheet , evaluatedWith:sheet , handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
+        
+        if let msg = message {
+            XCTAssert(app.sheets[title].staticTexts[msg].exists)
+        }
         
         if let num = numberOfItems {
             let sht = app.sheets
             XCTAssertEqual(sht.buttons.count, num)
         }
         
-        if tap {
-            weeklyOrderChoice1.tap()
+        if let btn = button {
+            app.sheets[title].buttons[btn].tap()
         }
     }
     
@@ -342,12 +345,10 @@ open class BDTestsUI:XCTestCase {
             let exists_cellLbl  = NSPredicate(format: "exists == \(exists)")
             expectation(for: exists_cellLbl  , evaluatedWith:cellLbl  , handler: nil)
             waitForExpectations(timeout: 5, handler: nil)
-            
-            
         }
     }
     
-    public  func collectionButton(buttonLabel:String,tap:Bool){
+    public func collectionButton(buttonLabel:String,tap:Bool){
         
         let app = XCUIApplication()
         let firstChild = app.collectionViews.children(matching:.any).element(boundBy: 0)
@@ -366,26 +367,46 @@ open class BDTestsUI:XCTestCase {
     }
     
     
+    /**
+     Tap tab bar based on tab index
+     
+     @param tabIndex:UInt
+     
+     @return none
+     */
     public func tabBar(tabIndex:UInt){
         
         let tabBarsQuery = XCUIApplication().tabBars
         let button = tabBarsQuery.children(matching: .button).element(boundBy: tabIndex)
         button.tap()
-        button.tap()
-        
     }
     
+    /**
+     Tap table cell based on IndexPath.row
+     
+     @param cellIndex:UInt
+     
+     @return none
+     */
     public func tableCellByIndex(cellIndex:UInt){
         let app = XCUIApplication()
         app.tables.children(matching: .any).element(boundBy:cellIndex).tap()
     }
     
     
-    public func tableCellByIdentifier(text:String,tap:Bool){
+    /**
+     Tap table cell based on identifier (cell label text)
+     
+     @param text:String
+     
+     @return none
+     */
+    public func tableCellByIdentifier(text:String,tap:Bool,exists:Bool){
         
         let app = XCUIApplication()
+        let doesExist = exists ? "true" : "false"
         let label =  app.tables.staticTexts[text]
-        let label_exists = NSPredicate(format: "exists == true")
+        let label_exists = NSPredicate(format: "exists == \(doesExist)")
         expectation(for: label_exists  , evaluatedWith:label , handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         
@@ -394,14 +415,6 @@ open class BDTestsUI:XCTestCase {
         }
     }
     
-    public  func tableCellByIdentifierDoesNotExist(text:String){
-        
-        let app = XCUIApplication()
-        let label =  app.tables.staticTexts[text]
-        let label_exists = NSPredicate(format: "exists == false")
-        expectation(for: label_exists  , evaluatedWith:label , handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-    }
     
     /**
      Look for nav bar with button, tap nav button
@@ -422,6 +435,15 @@ open class BDTestsUI:XCTestCase {
     }
     
     //MARK: Deprecated Methods
+    @available(*, deprecated, message: "Use textfield(identifier:String,text:String?,exists:Bool) instead")
+    public  func tableCellByIdentifierDoesNotExist(text:String){
+        
+        let app = XCUIApplication()
+        let label =  app.tables.staticTexts[text]
+        let label_exists = NSPredicate(format: "exists == false")
+        expectation(for: label_exists  , evaluatedWith:label , handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+    }
     
     @available(*, deprecated, message: "Use textfield(identifier:String,text:String?,exists:Bool) instead")
     public func textfield(identifier:String,text:String){
