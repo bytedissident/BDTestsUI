@@ -123,4 +123,10 @@ class BDTestsUITestsUITests: BDTestsUI {
         
         self.tableCellByIdentifier(text: "cell 0 - does not exist", tap: false, exists:false)
     }
+    
+    func testCollectionCell(){
+        
+        self.tabBar(tabIndex: 2)
+        self.collectionCell(cellLabel: "Test", tap:false)
+    }
 }

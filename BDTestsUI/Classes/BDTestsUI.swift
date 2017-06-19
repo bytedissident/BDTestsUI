@@ -185,17 +185,6 @@ open class BDTestsUI:XCTestCase {
         }
     }
     
-    @available(*, deprecated, message: "Use  alert(title:String,message:String?,button:String?,tap:Bool,exists:Bool) instead")
-    public func alertFalse(title:String){
-        let app = XCUIApplication()
-        
-        let alert = app.alerts[title]
-        let exists_alert = NSPredicate(format: "exists == false")
-        expectation(for: exists_alert , evaluatedWith:alert , handler: nil)
-        waitForExpectations(timeout: 2, handler: nil)
-        
-    }
-    
     /**
      Check existence of UIButton.
      Tap button if indicated
@@ -294,6 +283,8 @@ open class BDTestsUI:XCTestCase {
         }
     }
     
+    
+    
     /**
      Look for cell in collection view based on label, tap cell
      
@@ -302,49 +293,20 @@ open class BDTestsUI:XCTestCase {
      
      @return none
      */
-    public func collectionWithLabel(cellLabel:String,tap:Bool){
-        
-        let app = XCUIApplication()
-        let firstChild = app.collectionViews[cellLabel].children(matching:.any).element(boundBy: 0)
-        if firstChild.exists {
-            
-            if tap {
-                firstChild.tap()
-            }
-        }
-    }
-    
-    public func collectionCell(cellLabel:String,labelString:String?,tap:Bool){
+    public func collectionCell(cellLabel:String,tap:Bool){
         
         let app = XCUIApplication()
         let firstChild = app.collectionViews.children(matching:.any).element(boundBy: 0)
         if firstChild.exists {
             
-            if tap {
-                firstChild.tap()
-            }
-            if labelString ==  nil { return }
             let cellLbl = app.collectionViews.children(matching:.any).staticTexts[cellLabel]
             let exists_cellLbl  = NSPredicate(format: "exists == true")
             expectation(for: exists_cellLbl  , evaluatedWith:cellLbl  , handler: nil)
             waitForExpectations(timeout: 5, handler: nil)
             
-            if let lblString = labelString {
-                XCTAssertEqual(cellLbl.label, lblString)
+            if tap {
+                firstChild.tap()
             }
-        }
-    }
-    
-    public  func collectionCellLabelExists(cellLabel:String,exists:String){
-        
-        let app = XCUIApplication()
-        let firstChild = app.collectionViews.children(matching:.any).element(boundBy: 0)
-        if firstChild.exists {
-            
-            let cellLbl = app.collectionViews.children(matching:.any).staticTexts[cellLabel]
-            let exists_cellLbl  = NSPredicate(format: "exists == \(exists)")
-            expectation(for: exists_cellLbl  , evaluatedWith:cellLbl  , handler: nil)
-            waitForExpectations(timeout: 5, handler: nil)
         }
     }
     
@@ -352,9 +314,8 @@ open class BDTestsUI:XCTestCase {
         
         let app = XCUIApplication()
         let firstChild = app.collectionViews.children(matching:.any).element(boundBy: 0)
+        
         if firstChild.exists {
-            
-            
             let cellLbl = firstChild.children(matching:.any).buttons[buttonLabel]
             let exists_cellLbl  = NSPredicate(format: "exists == true")
             expectation(for: exists_cellLbl  , evaluatedWith:cellLbl  , handler: nil)
@@ -434,7 +395,53 @@ open class BDTestsUI:XCTestCase {
         bar.otherElements.children(matching: .button).element.tap()
     }
     
+    /*********************************************************************************
+    **********************************************************************************
+    **********************************************************************************
+    **********************************************************************************
+    **********************************************************************************
+    *********************************************************************************/
+ 
     //MARK: Deprecated Methods
+    @available(*, deprecated, message: "Use  collectionCell(cellLabel:String,tap:Bool)")
+    public  func collectionCellLabelExists(cellLabel:String,exists:String){
+        
+        let app = XCUIApplication()
+        let firstChild = app.collectionViews.children(matching:.any).element(boundBy: 0)
+        if firstChild.exists {
+            
+            let cellLbl = app.collectionViews.children(matching:.any).staticTexts[cellLabel]
+            let exists_cellLbl  = NSPredicate(format: "exists == \(exists)")
+            expectation(for: exists_cellLbl  , evaluatedWith:cellLbl  , handler: nil)
+            waitForExpectations(timeout: 5, handler: nil)
+        }
+    }
+    
+    @available(*, deprecated, message: "Use  collectionCell(cellLabel:String,tap:Bool)")
+    public func collectionWithLabel(cellLabel:String,tap:Bool){
+        
+        let app = XCUIApplication()
+        let firstChild = app.collectionViews[cellLabel].children(matching:.any).element(boundBy: 0)
+        if firstChild.exists {
+            if tap {
+                firstChild.tap()
+            }
+        }else{
+            XCTFail()
+        }
+    }
+    
+    @available(*, deprecated, message: "Use  alert(title:String,message:String?,button:String?,tap:Bool,exists:Bool) instead")
+    public func alertFalse(title:String){
+        let app = XCUIApplication()
+        
+        let alert = app.alerts[title]
+        let exists_alert = NSPredicate(format: "exists == false")
+        expectation(for: exists_alert , evaluatedWith:alert , handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
+        
+    }
+    
     @available(*, deprecated, message: "Use textfield(identifier:String,text:String?,exists:Bool) instead")
     public  func tableCellByIdentifierDoesNotExist(text:String){
         
