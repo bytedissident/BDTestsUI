@@ -9,14 +9,34 @@
 import UIKit
 import OHHTTPStubs
 
+public class Closure {
+    let closure: ()->()
+    
+    init (_ closure: @escaping ()->()) {
+        self.closure = closure
+    }
+    
+    @objc func invoke () {
+        closure()
+    }
+}
+
+extension UIControl {
+    public func add (for controlEvents: UIControlEvents, _ closure: @escaping ()->()) {
+        let sleeve = Closure(closure)
+        addTarget(sleeve, action: #selector(Closure.invoke), for: controlEvents)
+        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+    }
+}
+
 
 public class BDTests  {
     
     //DEFAULT ENVIORNMENT NAME, USED TO DETERMINE IF WE ARE IN TEST MODE. CHANGE FTO YOUR ENVIORMENT
-     public var enviornmentName = "BD-UI-TEST"
+    public var enviornmentName = "BD-UI-TEST"
     
     //DEFAULT HTTP RESPONSE CODE TO 200
-     public var httpResponseCode:Int32 = 200
+    public var httpResponseCode:Int32 = 200
     
     public init(enviornmentName:String?){
         if let envName = enviornmentName {
@@ -24,11 +44,21 @@ public class BDTests  {
         }
     }
     
-    /*
-     CREATE TEST
+    
+    /**
+     Creates a test
+     
+     - parameter jsonString: String?
+     - parameter jsonFile:String?
+     - parameter httpCode:Int32
+     
+     - return: Bool
      */
     public func createTest(jsonString:String?,jsonFile:String?,httpCode:Int32)->Bool{
-        print("CREATE TEST")
+        
+        //CLEAR
+        //UIPasteboard.general.setValue(nil, forKey: "data")
+        
         var created = false
         
         //SET THE HTTP RESPONSE CODE
@@ -53,51 +83,111 @@ public class BDTests  {
         return created
     }
     
-    /*
-     seed database
+    /**
+     ==== BASE ====
+     The ref variable is the string representation on the method that we want to call in order to set up test
+     ==== BASE ====
+     
+     - parameter ref: String
+     
+     - return: Bool
      */
-    public func seedDatabase(json:String)->Bool{
+    public func seedDatabase(ref:String)->Bool{
         
-        let paste = UIPasteboard(name: UIPasteboardName(rawValue: self.enviornmentName+"-model"), create: true)
-        paste?.string = ""
-        paste?.string = json
+        //CLEAR
+        let currentItems = UIPasteboard.general.items
+        var newItems = [[String:Any]]()
+        for item in currentItems{
+            if let _ = item["model"] {
+                
+            }else{
+                newItems.append(item)
+            }
+        }
         
-        if paste == nil { return false }
+        //removeModelTest()
+        newItems.append(["model":ref])
+        UIPasteboard.general.addItems(newItems)
+        
         return true
     }
     
     /**
-     read database data
+     Reads the ref variable out of the clipboard in order to set up the test
+     
+     - retrun: String?
      */
     public func readDatabaseData()->String?{
         
-        let paste = UIPasteboard(name: UIPasteboardName(rawValue: self.enviornmentName+"-model"), create: true)
-        if paste == nil { return nil }
+        let items =  UIPasteboard.general.items
+        for item in items {
+            if let model = item["model"]  {
+                guard let modelData = model as? Data else { return nil }
+                guard let methodName = String(data: modelData, encoding: .utf8) else { return nil }
+                
+                //removeModelTest()
+                return methodName
+            }
+        }
         
-        //guard let json = paste?.string else { return nil }
-        //guard let dict = self.convertToDictionary(text: json) else { return nil }
-        
-        //CLEAR CLIPBOARD
-       //UIPasteboard.remove(withName: UIPasteboardName(rawValue: self.enviornmentName+"-model"))
-        
-        return paste?.string
+        return nil
     }
     
     
-    
+    /**
+     Removes all tests. Removes:stubs, pasteboards
+     
+     - return: none
+     */
     public func removeTest(){
-        self.removeStubs()
-        UIPasteboard.remove(withName: UIPasteboardName(rawValue: self.enviornmentName))
-        UIPasteboard.remove(withName: UIPasteboardName(rawValue: self.enviornmentName+"-model"))
+        
+        let currentItems = UIPasteboard.general.items
+        var newItems = [[String:Any]]()
+        for item in currentItems{
+            if let _ = item["data"] {
+                
+            }else{
+                newItems.append(item)
+            }
+        }
+        if #available(iOS 10.0, *) {
+            UIPasteboard.general.setItems([[:]], options: [:])
+        } else {
+            UIPasteboard.general.items = [[:]]
+        }
+        UIPasteboard.general.addItems(newItems)
     }
     
+    
+    /**
+     removes a model test and stubs
+     
+     */
     public func removeModelTest(){
-        self.removeStubs()
-        UIPasteboard.remove(withName: UIPasteboardName(rawValue: self.enviornmentName+"-model"))
+        
+        let currentItems = UIPasteboard.general.items
+        var newItems = [[String:Any]]()
+        for item in currentItems{
+            if let _ = item["model"] {
+                
+            }else{
+                newItems.append(item)
+            }
+        }
+        if #available(iOS 10.0, *) {
+            UIPasteboard.general.setItems([[:]], options: [:])
+        } else {
+            // Fallback on earlier versions
+            UIPasteboard.general.items = [[:]]
+        }
+        UIPasteboard.general.addItems(newItems)
     }
     
-    /*
+    /**
      READ DATA FILE INTO STRING
+     
+     - parameter: urlString:String
+     - return: String?
      */
     public func openFileAndReadIntoString(urlString:String)->String?{
         if let dir = Bundle.main.path(forResource: urlString, ofType:"json"){
@@ -111,49 +201,65 @@ public class BDTests  {
         return nil
     }
     
-    /*
+    /**
      READ CLIPBOARD
      
      1. http code
      2. json string?
      3. json file
      
+     - return: String?
      */
     public func readClipboard()->String?{
         
-        let paste = UIPasteboard(name: UIPasteboardName(rawValue: self.enviornmentName), create: true)
+        let items =  UIPasteboard.general.items
+        for item in items {
+            if let model = item["data"]  {
+                guard let modelData = model as? Data else { return nil }
+                guard let methodName = String(data: modelData, encoding: .utf8) else { return nil }
+                //removeTest()
+                return methodName
+            }
+        }
         
-        if paste == nil { return nil }
-        let clipString =  paste?.string
-        
-        //clean clipboard
-        UIPasteboard.remove(withName: UIPasteboardName(rawValue: self.enviornmentName))
-        
-        return clipString
-        
+        return nil
     }
     
-    /*
+    /**
      SET CLIPBOARD
      pass json into clipboard for later review
-     
      
      1. http code
      2. json string?
      3. json file
+     
+     - parameter json:String
+     - return: Bool
+     
      */
     public func setClipboard(json:String)->Bool{
         
-        let paste = UIPasteboard(name: UIPasteboardName(rawValue: self.enviornmentName), create: true)
-        paste?.string = ""
-        paste?.string = json
-        
-        if paste == nil { return false }
+        //CLEAR
+        let currentItems = UIPasteboard.general.items
+        var newItems = [[String:Any]]()
+        for item in currentItems{
+            if let _ = item["data"] {
+                
+            }else{
+                newItems.append(item)
+            }
+        }
+        removeTest()
+        newItems.append(["data":json])
+        UIPasteboard.general.addItems(newItems)
         return true
     }
     
-    /*
+    /**
      CONVERT JSON TO DICTIONARY
+     
+     - parameter text:String
+     - return: [String:Any]?
      */
     public func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
@@ -167,8 +273,11 @@ public class BDTests  {
     }
     
     
-    /*
-     DETERMINE RESOPNSE TEXT
+    /**
+     DETERMINE RESPONSE TEXT
+     
+     - parameter dict[String:Any]
+     - return: String?
      */
     public func determineResponseText(dict:[String:Any])->String?{
         
@@ -195,75 +304,120 @@ public class BDTests  {
         return nil
     }
     
-    /*
+    /**
      STUB NETWORK
      */
     public func runTests()->Bool{
         
-        guard let json = self.readClipboard() else { assert(false); return false }
-        guard let dict = self.convertToDictionary(text: json) else { assert(false); return false }
-        guard let responseText = self.determineResponseText(dict:dict) else { assert(false); return false }
-        guard let httpCode = dict["code"] else { assert(false); return false }
-        guard let code =  httpCode as? Int32 else { assert(false); return false }
-        
         stub(condition: isMethodGET()) { request -> OHHTTPStubsResponse in
-            let stubData = responseText.data(using: String.Encoding.utf8)
-            return OHHTTPStubsResponse(data:stubData!, statusCode:code, headers:nil)
+            let data = self.readData()
+            if data.code > 0 {
+                let code = data.code
+                let responseText = data.response
+                //print(responseText)
+                let stubData = responseText.data(using: String.Encoding.utf8)
+                return OHHTTPStubsResponse(data:stubData!, statusCode:code, headers:nil)
+            }else {
+                return OHHTTPStubsResponse(data:Data(), statusCode:400, headers:nil)
+            }
         }
         
         stub(condition: isMethodPOST()) { request -> OHHTTPStubsResponse in
-            let stubData = responseText.data(using: String.Encoding.utf8)
-            return OHHTTPStubsResponse(data:stubData!, statusCode:code, headers:nil)
+            let data = self.readData()
+            if data.code > 0 {
+                let code = data.code
+                let responseText = data.response
+                //print(responseText)
+                let stubData = responseText.data(using: String.Encoding.utf8)
+                return OHHTTPStubsResponse(data:stubData!, statusCode:code, headers:nil)
+            }else {
+                return OHHTTPStubsResponse(data:Data(), statusCode:400, headers:nil)
+            }
         }
         
         stub(condition: isMethodPUT()) { request -> OHHTTPStubsResponse in
-            let stubData = responseText.data(using: String.Encoding.utf8)
-            return OHHTTPStubsResponse(data:stubData!, statusCode:code, headers:nil)
+            let data = self.readData()
+            if data.code > 0 {
+                let code = data.code
+                let responseText = data.response
+                //print(responseText)
+                let stubData = responseText.data(using: String.Encoding.utf8)
+                return OHHTTPStubsResponse(data:stubData!, statusCode:code, headers:nil)
+            }else {
+                return OHHTTPStubsResponse(data:Data(), statusCode:400, headers:nil)
+            }
         }
         
         stub(condition: isMethodPATCH()) { request -> OHHTTPStubsResponse in
-            let stubData = responseText.data(using: String.Encoding.utf8)
-            return OHHTTPStubsResponse(data:stubData!, statusCode:code, headers:nil)
+            let data = self.readData()
+            if data.code > 0 {
+                let code = data.code
+                let responseText = data.response
+                // print(responseText)
+                let stubData = responseText.data(using: String.Encoding.utf8)
+                return OHHTTPStubsResponse(data:stubData!, statusCode:code, headers:nil)
+            }else {
+                return OHHTTPStubsResponse(data:Data(), statusCode:400, headers:nil)
+            }
         }
         
         stub(condition: isMethodDELETE()) { request -> OHHTTPStubsResponse in
-            let stubData = responseText.data(using: String.Encoding.utf8)
-            return OHHTTPStubsResponse(data:stubData!, statusCode:code, headers:nil)
+            let data = self.readData()
+            if data.code > 0 {
+                let code = data.code
+                let responseText = data.response
+                //print(responseText)
+                let stubData = responseText.data(using: String.Encoding.utf8)
+                return OHHTTPStubsResponse(data:stubData!, statusCode:code, headers:nil)
+            }else {
+                return OHHTTPStubsResponse(data:Data(), statusCode:400, headers:nil)
+            }
         }
         return true
     }
     
+    func readData()->(code:Int32,response:String){
+        
+        let resp = (code:Int32(0),response:"")
+        guard let json = self.readClipboard() else { return resp }
+        guard let dict = self.convertToDictionary(text: json) else { return resp }
+        guard let responseText = self.determineResponseText(dict:dict) else { return resp }
+        guard let httpCode = dict["code"] else { return resp }
+        guard let code =  httpCode as? Int32 else { return resp }
+        
+        return (code:code,response:responseText)
+    }
+    
     /**
      REMOVE STUBS
+     
+     - return: none
      */
     public func removeStubs(){
         OHHTTPStubs.removeAllStubs()
     }
     
-    /*
+    /**
      IS TEST
+     
+     - return: Bool
+     
      */
     public func isTest()->Bool{
         
-        let paste = UIPasteboard(name: UIPasteboardName(rawValue: self.enviornmentName), create: false)
-        if paste?.string != nil {
-            
-            return true
-        }
-        return false
+        if readClipboard() == nil { return false }
+        return true
     }
     
-    
-    /*
+    /**
      HAS MODEL TEST
+     
+     - return: Bool
+     
      */
     public func isModelTest()->Bool{
         
-        let paste = UIPasteboard(name: UIPasteboardName(rawValue: self.enviornmentName+"-model"), create: false)
-        if paste?.string != nil {
-            
-            return true
-        }
-        return false
+        if readDatabaseData() == nil { return false }
+        return true
     }
 }

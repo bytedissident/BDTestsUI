@@ -11,6 +11,7 @@ import Foundation
 
 public class BDTestsHelper:NSObject {
     
+    let bdTestsEnv = BDTestsEnv()
     public override init(){}
 
     public func testMethod(){
