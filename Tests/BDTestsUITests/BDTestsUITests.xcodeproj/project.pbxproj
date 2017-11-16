@@ -21,6 +21,9 @@
 		875053461ED36DDD00A04704 /* BDTestsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875053431ED36DD800A04704 /* BDTestsUI.swift */; };
 		8759498C1EF49307008E156E /* TableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8759498B1EF49307008E156E /* TableTableViewController.swift */; };
 		8759498E1EF49318008E156E /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8759498D1EF49318008E156E /* CollectionViewController.swift */; };
+		878064151FBB972A006135C4 /* BDTestsUIBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878064141FBB972A006135C4 /* BDTestsUIBase.swift */; };
+		878064181FBBA969006135C4 /* BDTestsConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 878064161FBB9D5E006135C4 /* BDTestsConfig.plist */; };
+		87FB463B1FBE2833005A4F58 /* TestBench.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FB463A1FBE2833005A4F58 /* TestBench.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +42,8 @@
 		6C9EC96ED06FC86728AA7871 /* Pods_BDTestsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BDTestsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		870F75FD1EF8790C0003F448 /* CollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
 		870F75FF1EF879650003F448 /* CollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionCell.xib; sourceTree = "<group>"; };
+		8739C79B1FBE12AF00FF4011 /* BDTestsUITestsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BDTestsUITestsTests.swift; sourceTree = "<group>"; };
+		8739C79D1FBE12AF00FF4011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8750531E1ED36D1E00A04704 /* BDTestsUITests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BDTestsUITests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		875053211ED36D1E00A04704 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		875053231ED36D1E00A04704 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +58,9 @@
 		875053431ED36DD800A04704 /* BDTestsUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BDTestsUI.swift; sourceTree = "<group>"; };
 		8759498B1EF49307008E156E /* TableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableTableViewController.swift; sourceTree = "<group>"; };
 		8759498D1EF49318008E156E /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		878064141FBB972A006135C4 /* BDTestsUIBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BDTestsUIBase.swift; sourceTree = "<group>"; };
+		878064161FBB9D5E006135C4 /* BDTestsConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BDTestsConfig.plist; sourceTree = "<group>"; };
+		87FB463A1FBE2833005A4F58 /* TestBench.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBench.swift; sourceTree = "<group>"; };
 		C11F3022FA0741CA90270D5A /* Pods-BDTestsUITestsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BDTestsUITestsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BDTestsUITestsUITests/Pods-BDTestsUITestsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C9A390235FACD0305D199667 /* Pods-BDTestsUITestsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BDTestsUITestsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BDTestsUITestsUITests/Pods-BDTestsUITestsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CC21A0D2B800E211FB7E8EA9 /* Pods-BDTestsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BDTestsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BDTestsUITests/Pods-BDTestsUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -89,12 +97,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8739C79A1FBE12AF00FF4011 /* BDTestsUITestsTests */ = {
+			isa = PBXGroup;
+			children = (
+				8739C79B1FBE12AF00FF4011 /* BDTestsUITestsTests.swift */,
+				8739C79D1FBE12AF00FF4011 /* Info.plist */,
+			);
+			path = BDTestsUITestsTests;
+			sourceTree = "<group>";
+		};
 		875053151ED36D1E00A04704 = {
 			isa = PBXGroup;
 			children = (
 				875053411ED36DD800A04704 /* Classes */,
 				875053201ED36D1E00A04704 /* BDTestsUITests */,
 				875053351ED36D1E00A04704 /* BDTestsUITestsUITests */,
+				8739C79A1FBE12AF00FF4011 /* BDTestsUITestsTests */,
 				8750531F1ED36D1E00A04704 /* Products */,
 				329A2D6DBD59BACF230EE908 /* Pods */,
 				87CED95770D7362ABD8ADFDC /* Frameworks */,
@@ -132,6 +150,7 @@
 			children = (
 				875053361ED36D1E00A04704 /* BDTestsUITestsUITests.swift */,
 				875053381ED36D1E00A04704 /* Info.plist */,
+				87FB463A1FBE2833005A4F58 /* TestBench.swift */,
 			);
 			path = BDTestsUITestsUITests;
 			sourceTree = "<group>";
@@ -139,8 +158,10 @@
 		875053411ED36DD800A04704 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				875053421ED36DD800A04704 /* .gitkeep */,
+				878064141FBB972A006135C4 /* BDTestsUIBase.swift */,
+				878064161FBB9D5E006135C4 /* BDTestsConfig.plist */,
 				875053431ED36DD800A04704 /* BDTestsUI.swift */,
+				875053421ED36DD800A04704 /* .gitkeep */,
 			);
 			name = Classes;
 			path = ../../BDTestsUI/Classes;
@@ -205,18 +226,18 @@
 		875053161ED36D1E00A04704 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Derek Bronston";
 				TargetAttributes = {
 					8750531D1ED36D1E00A04704 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = JG4TU5Z5P9;
+						DevelopmentTeam = Q953KSA8G4;
 						ProvisioningStyle = Automatic;
 					};
 					875053311ED36D1E00A04704 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = JG4TU5Z5P9;
+						DevelopmentTeam = Q953KSA8G4;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 8750531D1ED36D1E00A04704;
 					};
@@ -258,6 +279,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				878064181FBBA969006135C4 /* BDTestsConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +397,8 @@
 			files = (
 				875053371ED36D1E00A04704 /* BDTestsUITestsUITests.swift in Sources */,
 				875053461ED36DDD00A04704 /* BDTestsUI.swift in Sources */,
+				87FB463B1FBE2833005A4F58 /* TestBench.swift in Sources */,
+				878064151FBB972A006135C4 /* BDTestsUIBase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,12 +528,14 @@
 			baseConfigurationReference = 1250C6E1A9BE620431A666B7 /* Pods-BDTestsUITests.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = JG4TU5Z5P9;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q953KSA8G4;
 				INFOPLIST_FILE = BDTestsUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bytedissident.bdtestsui.BDTestsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -519,12 +545,14 @@
 			baseConfigurationReference = CC21A0D2B800E211FB7E8EA9 /* Pods-BDTestsUITests.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = JG4TU5Z5P9;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q953KSA8G4;
 				INFOPLIST_FILE = BDTestsUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bytedissident.bdtestsui.BDTestsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -534,11 +562,13 @@
 			baseConfigurationReference = C9A390235FACD0305D199667 /* Pods-BDTestsUITestsUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = JG4TU5Z5P9;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q953KSA8G4;
 				INFOPLIST_FILE = BDTestsUITestsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bytedissident.bdtestsui.BDTestsUITestsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = BDTestsUITests;
 			};
@@ -549,11 +579,13 @@
 			baseConfigurationReference = C11F3022FA0741CA90270D5A /* Pods-BDTestsUITestsUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = JG4TU5Z5P9;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q953KSA8G4;
 				INFOPLIST_FILE = BDTestsUITestsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bytedissident.bdtestsui.BDTestsUITestsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = BDTestsUITests;
 			};

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>again</string>
+	<string>setMethodCounter:</string>
+	<string>setMethodList:</string>
+	<string>methodCounter</string>
+	<string>runThis</string>
+	<string>setUpRun</string>
+	<string>init</string>
+	<string>initWithInvocation:</string>
+	<string>setUp</string>
+	<string>testRunMethod</string>
+	<string>initWithSelector:</string>
+	<string>textfield:</string>
+	<string>secureTextfield:</string>
+	<string>label:</string>
+	<string>labelContains:</string>
+	<string>view:</string>
+	<string>alert:</string>
+	<string>button:</string>
+	<string>buttonInTableCell:</string>
+	<string>buttonInCollectionCell:</string>
+	<string>labelInCollectionCell:</string>
+	<string>buttonLabel:</string>
+	<string>statusBar:</string>
+	<string>sheet:</string>
+	<string>collectionCell:</string>
+	<string>collectionButton:</string>
+	<string>tabBar:</string>
+	<string>tableCellByIdentifier:</string>
+	<string>navBar:</string>
+	<string>.cxx_destruct</string>
+	<string>tearDown</string>
+</array>
+</plist>

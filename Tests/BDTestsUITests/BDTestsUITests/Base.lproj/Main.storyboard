@@ -56,7 +56,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-lT-L5U">
                                 <rect key="frame" x="222" y="120" width="98" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" label="test-button-alert-trigger"/>
+                                <accessibility key="accessibilityConfiguration" label="button-alert-trigger"/>
                                 <state key="normal" title="Trigger Alert"/>
                                 <connections>
                                     <action selector="testButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Pk-eB-30F"/>
