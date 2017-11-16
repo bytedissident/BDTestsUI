@@ -16,7 +16,7 @@ extension BDTestsUIBase {
         
         button(behavior: "tap button to test first db interaction", identifier: "test-button", tap: true, exists: true)
         label(behavior: "should see", text: "test-string-one", identifier: "test-string-one", exists: true)
-         button(behavior: "reset seeder", identifier: "reset-button-test-1", tap: true, exists: true)
+         button(behavior: "reset seeder", identifier: "reset-button-1", tap: true, exists: true)
       
         reset()
     }
@@ -26,7 +26,7 @@ extension BDTestsUIBase {
     
         button(behavior: "tap button to test second db interaction", identifier: "test-button", tap: true, exists: true)
         label(behavior: "should see", text: "test-string-two", identifier: "test-string-two", exists: true)
-        button(behavior: "reset seeder", identifier: "reset-button-test-2", tap: true, exists: true)
+        button(behavior: "reset seeder", identifier: "reset-button-2", tap: true, exists: true)
         
         
         reset()
@@ -35,7 +35,7 @@ extension BDTestsUIBase {
     
    
     
-    func bd_TableCellByIndex(){
+    /*func bd_TableCellByIndex(){
         
         self.tabBar(tabIndex: 1)
         
@@ -51,7 +51,7 @@ extension BDTestsUIBase {
         self.tableCellByIdentifier(text: "cell 0", tap: true, exists: true)
         
         self.alert(title: "Alert Title", message: "Alert message.", button: "one", tap: false)
-    }
+    }*/
 
     
 

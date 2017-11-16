@@ -19,70 +19,25 @@ extension BDTestsHelper {
     
     public func seed_bd_stubOne(){
         
-        
-        
-        let resetButton = UIButton()
-        resetButton.tag = 99999
-        resetButton.accessibilityLabel = "reset-button-test-1"
-        resetButton.frame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
-        resetButton.backgroundColor = UIColor.green
-        resetButton.add(for: .touchUpInside){
-            _ = BDTestsEnv().testEnv()
-            //self.remove()
-           
-        }
-        let window = UIApplication.shared.windows.first!
-        window.addSubview(resetButton)
-        window.bringSubview(toFront: resetButton)
+        addResetButton(label: "reset-button-1")
         Singleton.sharedInstance.testValue = "test-string-one"
         
     }
     
     public func seed_bd_stubTwo(){
         
-      
-        let resetButton = UIButton()
-        resetButton.tag = 99999
-        resetButton.accessibilityLabel = "reset-button-test-2"
-        resetButton.frame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
-        resetButton.backgroundColor = UIColor.green
-        resetButton.add(for: .touchUpInside){
-            _ = BDTestsEnv().testEnv()
-            //self.remove()
-            
-        }
-        let window = UIApplication.shared.windows.first!
-        window.addSubview(resetButton)
-        window.bringSubview(toFront: resetButton)
+        addResetButton(label: "reset-button-2")
         Singleton.sharedInstance.testValue = "test-string-two"
         
-        
     }
     
-    func seed_bd_Alert(){
-        
-    }
-    func seed_bd_Sheet(){
-        
-    }
+    func seed_bd_Alert(){}
     
-    func seed_bd_TableCellByIndex(){
-        
-    }
+    func seed_bd_Sheet(){}
     
-    func seed_bd_TableCellByIdentifier_exists(){
-        
-    }
+    func seed_bd_TableCellByIndex(){}
     
-    func remove(){
-        let window = UIApplication.shared.windows.first!
-        for view in window.subviews{
-            if view.tag == 99999{
-                view.removeFromSuperview()
-            }
-        }
-    }
-
+    func seed_bd_TableCellByIdentifier_exists(){}
 }
 
 class ViewController: UIViewController {
