@@ -262,6 +262,7 @@ open class BDTestsUI:XCTestCase {
         XCTAssertEqual(btn.value as? String, text)
     }
     
+    
     /**
      Check existence of UIButton and whether button's label == text
      
@@ -1092,3 +1093,4 @@ open class BDTestsUI:XCTestCase {
         }
     }
 }
+

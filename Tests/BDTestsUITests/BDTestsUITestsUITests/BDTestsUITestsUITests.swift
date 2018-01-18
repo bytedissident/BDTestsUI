@@ -1,163 +1,143 @@
 //
-//  BDsUIsUIs.swift
-//  BDsUIsUIs
+//  BDTestsUITestsUITests.swift
+//  BDTestsUITestsUITests
 //
 //  Created by Derek Bronston on 5/22/17.
 //  Copyright © 2017 Derek Bronston. All rights reserved.
 //
 
-import BDTests
 import XCTest
-
-extension BDTestsUIBase {
+class BDTestsUITestsUITests: BDTestsUI {
     
-    func bd_stubOne(){
-
+    override func setUp() {
+        super.setUp()
         
-        button(behavior: "tap button to test first db interaction", identifier: "test-button", tap: true, exists: true)
-        label(behavior: "should see", text: "test-string-one", identifier: "test-string-one", exists: true)
-         button(behavior: "reset seeder", identifier: "reset-button-test-1", tap: true, exists: true)
-      
-        reset()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        // In UI tests it is usually best to stop immediately when a failure occurs.
+        continueAfterFailure = false
+        XCUIApplication().launch()
     }
     
-    func bd_stubTwo(){
-        
-    
-        button(behavior: "tap button to test second db interaction", identifier: "test-button", tap: true, exists: true)
-        label(behavior: "should see", text: "test-string-two", identifier: "test-string-two", exists: true)
-        button(behavior: "reset seeder", identifier: "reset-button-test-2", tap: true, exists: true)
-        
-        
-        reset()
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
     }
     
-    
-   
-    
-    func bd_TableCellByIndex(){
+    func testTextfield_exists_typeText() {
         
-        self.tabBar(tabIndex: 1)
-        
-        self.tableCellByIndex(cellIndex: 1)
-        
-        self.alert(title: "Alert Title", message: "Alert message.", button: "one", tap: false)
-    }
-    
-    func bd_TableCellByIdentifier_exists(){
-        
-        self.tabBar(tabIndex: 1)
-        
-        self.tableCellByIdentifier(text: "cell 0", tap: true, exists: true)
-        
-        self.alert(title: "Alert Title", message: "Alert message.", button: "one", tap: false)
-    }
-
-    
-
-    
-    /*func bd_Textfield_exists_typeText() {
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
         
         //EXISTS, ENTER TEXT
-        textfield(identifier: "-text-field", text: "text",exists: true)
+        textfield(behavior:"We should see the string text",identifier: "test-text-field", text: "text",exists: true)
     }
     
-    func bd_TextField_doesNotExist(){
+    func testTextField_doesNotExist(){
         
-        self.textfield(identifier: "no--text-field", text: "text",exists: false)
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
+        textfield(behavior:"We should see the string text",identifier: "no-test-text-field", text: "text",exists: false)
     }
     
-    func bd_SecureTextfield_exists_typeText() {
+    func testSecureTextfield_exists_typeText() {
         
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
         //EXISTS, ENTER TEXT
-        self.secureTextfield(identifier: "-secure-text-field", text: "text",exists: true)
+        secureTextfield(behavior:"We should see the string text",identifier: "test-secure-text-field", text: "text",exists: true)
     }
     
-    func bd_SecureTextField_doesNotExist(){
+    func testSecureTextField_doesNotExist(){
         
-        self.secureTextfield(identifier: "no--text-field", text: "text",exists: false)
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
+        secureTextfield(behavior: "Tap tab 2",identifier: "no-test-text-field", text: "text",exists: false)
     }
     
-    func bd_Label_exists_accessoryLabelHasCorrectText(){
-        self.label(text: "-label", identifier: "-label", exists: true)
+    func testLabel_exists_accessoryLabelHasCorrectText(){
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
+        label(behavior: "Tap tab 2",text: "test-label", identifier: "test-label", exists: true)
     }
     
-    func bd_Label_doesNotExist(){
-        self.label(text: nil, identifier: "label-does-not-exist", exists: false)
+    func testLabel_doesNotExist(){
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
+        label(behavior: "Tap tab 2",text: nil, identifier: "label-does-not-exist", exists: false)
     }
     
-    func bd_LabelContains_accessoryContainsText(){
-        self.labelContains(text: "-", identifier: "-label")
+    func testLabelContains_accessoryContainsText(){
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
+        labelContains(behavior: "Tap tab 2",text: "test-", identifier: "test-label")
     }
     
-    func bd_View_exists(){
-        self.view(identifier: "blue-view", exists: true)
-        again()
+    func testView_exists(){
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
+        view(behavior: "Tap tab 2",identifier: "blue-view", exists: true)
     }
     
-    func bd_View_doesNotExist(){
-         self.view(identifier: "blue-view-does-not-exist", exists: false)
+    func testView_doesNotExist(){
+       tabBar(behavior: "Tap tab 1", tabIndex: 1)
+        view(behavior: "Tap tab 2",identifier: "blue-view-does-not-exist", exists: false)
     }
     
-    func bd_Button_doesNotExist(){
-        self.button(identifier: "-button-no", tap: false, exists: false)
+    func testButton_doesNotExist(){
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
+        button(behavior: "Tap tab 2",identifier: "test-button-no", tap: false, exists: false)
     }
     
-    func bd_Button_exists_tap(){
-        self.button(identifier: "-button", tap: true, exists: true)
-        self.label(text: " Label Pressed", identifier: " Label Pressed", exists: true)
+    func testButton_exists_tap(){
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
+        button(behavior: "Tap tab 2",identifier: "test-button", tap: true, exists: true)
+        label(behavior: "Tap tab 2",text: "test-value", identifier: "test-value", exists: true)
     }
     
-    func ButtonLabel(){
-        self.buttonLabel(identifier: "-button", text: "-button")
+    func testButtonLabel(){
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
+        buttonLabel(behavior: "Tap tab 2",identifier: "test-button", text: "test-button")
     }
     
-    func Alert(){
+    func testAlert(){
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
+        button(behavior: "Tap tab 2",identifier: "button-alert-trigger", tap: true, exists: true)
         
-        self.button(identifier: "-button-alert-trigger", tap: true, exists: true)
+        alert( title: "Alert Title", message: "Alert message.", button: "one", tap: true)
         
-        self.alert(title: "Alert Title", message: "Alert message.", button: "one", tap: true)
-        
-        self.label(text: "One Pressed", identifier: "One Pressed", exists: true)
+        label(behavior: "Tap tab 2",text: "One Pressed", identifier: "One Pressed", exists: true)
     }
     
-    func Sheet(){
+    func testSheet(){
+        tabBar(behavior: "Tap tab 1", tabIndex: 1)
+        button(behavior: "Tap tab 2",identifier: "test-button-sheet-trigger", tap: true, exists: true)
         
-        self.button(identifier: "-button-sheet-trigger", tap: true, exists: true)
+        sheet(behavior: "Tap tab 2",title: "Sheet Title", message: "Sheet message.", button: "one", tap: true, numberOfItems: 2)
         
-        self.sheet(title: "Sheet Title", message: "Sheet message.", button: "one", tap: true, numberOfItems: 2)
-        
-        self.label(text: "One Pressed", identifier: "One Pressed", exists: true)
+        label(behavior: "Tap tab 2",text: "One Pressed", identifier: "One Pressed", exists: true)
     }
     
-    func TableCellByIndex(){
+    func testTableCellByIndex(){
         
-        self.tabBar(tabIndex: 1)
+        tabBar(behavior: "Tap tab 2",tabIndex: 2)
         
-        self.tableCellByIndex(cellIndex: 1)
+        tableCellByIndex(behavior: "Tap tab 2",cellIndex: 1)
         
-        self.alert(title: "Alert Title", message: "Alert message.", button: "one", tap: false)
+        alert( title: "Alert Title", message: "Alert message.", button: "one", tap: false)
     }
     
-    func TableCellByIdentifier_exists(){
+    func testTableCellByIdentifier_exists(){
         
-        self.tabBar(tabIndex: 1)
+        tabBar(behavior: "Tap tab 2",tabIndex: 2)
         
-        self.tableCellByIdentifier(text: "cell 0", tap: true, exists: true)
+        tableCellByIdentifier(behavior: "Tap cell 0",text: "cell 0", tap: true, exists: true)
         
-        self.alert(title: "Alert Title", message: "Alert message.", button: "one", tap: false)
+        alert(title: "Alert Title", message: "Alert message.", button: "one", tap: false)
     }
     
-    func TableCellByIdentifier_doesNotExist(){
+    func testTableCellByIdentifier_doesNotExist(){
         
-        self.tabBar(tabIndex: 1)
+        tabBar(behavior: "Tap tab 2",tabIndex: 2)
         
-        self.tableCellByIdentifier(text: "cell 0 - does not exist", tap: false, exists:false)
+        tableCellByIdentifier(behavior: "Tap cell 0",text: "cell 0 - does not exist", tap: false, exists:false)
     }
     
-    func CollectionCell(){
+    func testCollectionCell(){
         
-        self.tabBar(tabIndex: 2)
-        self.collectionCell(cellLabel: "", tap:false)
-    }*/
+        tabBar(behavior: "Tap tab 3",tabIndex: 3)
+        collectionCell(behavior: "We should see this in the collection cell",cellLabel: "Test", tap:false)
+    }
 }
